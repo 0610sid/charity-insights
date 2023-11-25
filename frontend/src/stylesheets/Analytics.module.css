@@ -1,12 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
 
 .mostouter {
     color: #a3b1eb;
     font-family: Montserrat, sans-serif;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .left {
@@ -30,22 +32,103 @@
     min-height: 92vh;
     margin-top: 4vh;
     border-radius: 25px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .totalsum {
-    margin-top: 3vw;
+    margin-top: 2vw;
     width: 90%;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.062);
     border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(255, 255, 255, 0.147);
+    backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(0px);
     /* border: 1px solid rgba(255, 255, 255, 0.15); */
 }
 
 .tot{
     font-weight: 600;
-    padding: 1vw;
+    padding: 1vw 1vw 0.2vw 1vw;
     font-size: 1.6vw;
 }
 
+.fig{
+    font-weight: 800;
+    font-size: 2vw;
+    text-align: right;
+    padding: 0.2vw 1vw 1vw 1vw;
+}
+
+.heading{
+    font-weight: 600;
+    font-size: 1.8vw;
+    text-align: center;
+    padding: 1vw 1vw 0.5vw 1vw;
+}
+
+.nametag{
+    display: flex;
+    padding: 1vw 1vw 0vw 1vw;
+    font-weight: 500;
+    font-size: 1.3vw;
+}
+
+.rank{
+    width: 2vw;
+}
+
+.location{
+    padding-left: 3vw;
+    font-size: 0.8vw;
+}
+
+.amount{
+    padding: 0.5vw 1vw 0.7vw 1vw;
+    font-weight: 500;
+    font-size: 1.3vw;
+}
+
+.rightleft{
+    width: 47%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.rightright{
+    width: 47%;
+    display: flex;
+    align-items: center;
+}
+
+.graph1bg{
+    background: rgba(255, 255, 255, 0.062);
+    border-radius: 16px;
+    box-shadow: 0 3px 20px rgba(255, 255, 255, 0.147);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(0px);
+    width: 95%;
+    min-height: 46%;
+}
+
+.mapbg{
+    background: rgba(255, 255, 255, 0.062);
+    border-radius: 16px;
+    box-shadow: 0 3px 20px rgba(255, 255, 255, 0.147);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(0px);
+    width: 95%;
+    min-height: 46%;
+}
+
+.recentdot{
+    background: rgba(255, 255, 255, 0.062);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(255, 255, 255, 0.147);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(0px);
+    width: 95%;
+    min-height: 92%;
+}
