@@ -8,10 +8,9 @@ import navb from "../stylesheets/Navbar.module.css"
 import Typewriter from "typewriter-effect"
 import { useNavigate } from "react-router-dom"
 
-import uploadimg from "../assets/upload.png"
-import brain from "../assets/brain.png"
-import eyescanner from "../assets/eye-scanner.png"
-
+import step1 from "../assets/step1.png"
+import step3 from "../assets/step3.png"
+import step2 from "../assets/step2.png"
 
 const Home = () => {
     let navigate = useNavigate()
@@ -25,7 +24,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        AOS.init({ duration: 2000, once: true });
+        AOS.init({ duration: 2000 });
     }, []);
 
     return (
@@ -48,7 +47,7 @@ const Home = () => {
                         </button>
                     )}
                 </nav>
-              
+
                 <div className={styles.container}>
                     <div className={styles.headings}>
                         <div>
@@ -62,85 +61,82 @@ const Home = () => {
                                 />
                             </p>
                             <p className={styles.tagline}>
-                                Diabetic Retinopathy with Quantum Computing
+                                Beyond Charity, Embracing Change:<br /> Charity Insight - Where Insights Fuel Transformative Giving.
                             </p>
                         </div>
                     </div>
 
                     <div className={styles.aboutdiv}>
-                        <p data-aos="fade-zoom-in" data-aos-duration="1500" data-aos-delay="200" className={styles.aboutus}>About Us</p>
+                        <p data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="200" className={styles.aboutus}>About Us</p>
 
-                        <p data-aos="fade-zoom-in" data-aos-duration="1500" data-aos-delay="700" className={styles.abouttxt}>
-                            Our website utilizes quantum computing and deep learning
-                            to detect diabetic retinopathy from fundus images.
-                            Additionally, we offer essential precautions and
-                            guidance for a comprehensive approach to managing this
-                            eye disorder.
+                        <p data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="700" className={styles.abouttxt}>
+                            Welcome to Charity Insight, where compassion meets data to create a powerful force for positive change. At Charity Insight, we believe in the transformative potential of every act of generosity. Our platform serves as a bridge between those who wish to make a difference and the NGOs dedicated to creating a better world.
+
                         </p>
                     </div>
 
-                    <div data-aos="fade-zoom-in" data-aos-duration="1500" data-aos-delay="700" className={styles.stepsheading}>
-                        <p className={styles.testedtxt}>Get Tested</p>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                    <div className={styles.aboutdiv}>
+                        <p data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="200" className={styles.aboutus}>Our Mission</p>
+
+                        <p data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="700" className={styles.abouttxt}>
+                            Empowering Change, Illuminating Impact.<br />
+
+                            Our mission is to inspire and facilitate meaningful connections between donors and NGOs, fostering a global community committed to positive change. We believe in the collective power of informed giving and the invaluable insights that data can provide to amplify the impact of charitable actions.
+                        </p>
+                    </div>
+
+                    <div data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="700" className={styles.stepsheading}>
+                        <p className={styles.testedtxt}>Donate</p>
                         <p className={styles.steps}>In 3 Simple Steps</p>
                     </div>
 
-                    <div className={styles.stepsdiv} data-aos="fade-zoom-in" data-aos-duration="1500" data-aos-delay="700">
+                    <div className={styles.stepsdiv} data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="700">
                         <div className={styles.stepparent}>
 
                             <img
-                                src={eyescanner}
+                                src={step1}
                                 alt="Eye Scanner"
                                 className={styles.img}
                             />
 
                             <p className={styles.steptxt}>
-                                Click a picture of your eye under a{" "}
-                                <a
-                                    href="https://en.wikipedia.org/wiki/Fundus_(eye)"
-                                    className={styles.link}
-                                >
-                                    Fundus
-                                </a>{" "}
-                                or using a 20D lens attachment which matches the
-                                image above.
+                                Select a NGO of your choice.
                             </p>
                         </div>
 
                         <div className={styles.stepparent}>
 
                             <img
-                                src={uploadimg}
+                                src={step2}
                                 alt="Upload Image"
                                 className={styles.img2}
                             />
 
                             <p className={styles.steptxt}>
-                                Conveniently upload images by dragging or selecting
-                                them directly from your device.
+                                Fill in your details and decide the amount you wish to donate.
                             </p>
                         </div>
 
                         <div className={styles.stepparent}>
 
                             <img
-                                src={brain}
+                                src={step3}
                                 alt="Upload Image"
                                 className={styles.img2}
                             />
 
                             <p className={styles.steptxt}>
-                                Await AI Assessment:
-                                <br /> Attain Instant Results, Detailed Overview
+                                Select from multitude of different payment  options. Be the change you wish to see in the world.
                             </p>
-                            {localStorage.getItem("Token") ? (
-                                <a href="/image/upload" className={styles.testnow}>
-                                    Test Now
-                                </a>
-                            ) : (
-                                <a href="/login" className={styles.testnow}>
-                                    Test Now
-                                </a>
-                            )}
                         </div>
                     </div>
                 </div>
@@ -171,92 +167,86 @@ const Home = () => {
                             <p className={styles.title}>
                                 <Typewriter
                                     options={{
-                                        strings: ["QuantumEyes"],
+                                        strings: ["Charity Insights"],
                                         autoStart: true,
                                         deleteSpeed: Infinity,
                                     }}
                                 />
                             </p>
                             <p className={styles.tagline}>
-                                Diabetic Retinopathy with Quantum Computing
+                                Beyond Charity, Embracing Change:<br /> Charity Insight - Where Insights Fuel Transformative Giving.
                             </p>
                         </div>
                     </div>
 
-                    <div data-aos="fade-zoom-in" data-aos-duration="1500" className={styles.aboutdiv}>
+                    <div data-aos="fade-zoom-in" data-aos-duration="1000" className={styles.aboutdiv}>
                         <p className={styles.aboutus}>About Us</p>
 
                         <p className={styles.abouttxt}>
-                            Our website utilizes quantum computing and deep learning
-                            to detect diabetic retinopathy from fundus images.
-                            Additionally, we offer essential precautions and
-                            guidance for a comprehensive approach to managing this
-                            eye disorder.
+                            Welcome to Charity Insight, where compassion meets data to create a powerful force for positive change. At Charity Insight, we believe in the transformative potential of every act of generosity. Our platform serves as a bridge between those who wish to make a difference and the NGOs dedicated to creating a better world.
+                        </p>
+                    </div>
+                    
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                    <div data-aos="fade-zoom-in" data-aos-duration="1000" className={styles.aboutdiv}>
+                        <p className={styles.aboutus}>Our Mission</p>
+
+                        <p className={styles.abouttxt}>
+                            Empowering Change, Illuminating Impact.<br />
+
+                            Our mission is to inspire and facilitate meaningful connections between donors and NGOs, fostering a global community committed to positive change. We believe in the collective power of informed giving and the invaluable insights that data can provide to amplify the impact of charitable actions.
                         </p>
                     </div>
 
-                    <div data-aos="fade-zoom-in" data-aos-duration="1500" className={styles.stepsheading}>
-                        <p className={styles.testedtxt}>Get Tested</p>
+
+                    <div data-aos="fade-zoom-in" data-aos-duration="1000" className={styles.stepsheading}>
+                        <p className={styles.testedtxt}>Donate</p>
                         <p className={styles.steps}>In 3 Simple Steps</p>
                     </div>
 
                     <div className={styles.stepsdiv}>
-                        <div className={styles.stepparent} data-aos="fade-right" data-aos-duration="1500">
+                        <div className={styles.stepparent} data-aos="fade-right" data-aos-duration="1000">
 
                             <img
-                                src={eyescanner}
+                                src={step1}
                                 alt="Eye Scanner"
                                 className={styles.img}
                             />
 
                             <p className={styles.steptxt}>
-                                Click a picture of your eye under a{" "}
-                                <a
-                                    href="https://en.wikipedia.org/wiki/Fundus_(eye)"
-                                    className={styles.link}
-                                >
-                                    Fundus
-                                </a>{" "}
-                                or using a 20D lens attachment which matches the
-                                image above.
+                                Select a NGO of your choice.
                             </p>
                         </div>
 
-                        <div className={styles.stepparent} data-aos="fade-left" data-aos-duration="1500">
+                        <div className={styles.stepparent} data-aos="fade-left" data-aos-duration="1000">
 
                             <img
-                                src={uploadimg}
+                                src={step2}
                                 alt="Upload Image"
                                 className={styles.img2}
                             />
-                            
+
                             <p className={styles.steptxt}>
-                                Conveniently upload images by dragging or selecting
-                                them directly from your device.
+                                Fill in your details and decide the amount you wish to donate.
                             </p>
                         </div>
 
-                        <div className={styles.stepparent} data-aos="fade-right" data-aos-duration="1500">
+                        <div className={styles.stepparent} data-aos="fade-right" data-aos-duration="1000">
 
                             <img
-                                src={brain}
+                                src={step3}
                                 alt="Upload Image"
                                 className={styles.img2}
                             />
-                            
+
                             <p className={styles.steptxt}>
-                                Await AI Assessment:
-                                <br /> Attain Instant Results, Detailed Overview
+                                Select from multitude of different payment  options. Be the change you wish to see in the world.
                             </p>
-                            {localStorage.getItem("Token") ? (
-                                <a href="/image/upload" className={styles.testnow}>
-                                    Test Now
-                                </a>
-                            ) : (
-                                <a href="/login" className={styles.testnow}>
-                                    Test Now
-                                </a>
-                            )}
                         </div>
                     </div>
                 </div>
