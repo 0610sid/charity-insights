@@ -3,7 +3,10 @@ import styles from "../stylesheets/NgoDets.module.css"
 
 const NgoDets = () => {
   return (
-    <div>NgoDets</div>
+    <div className={styles.ret}>
+        <div className={styles.left}></div>
+        <div className={styles.right}></div>
+    </div>
   )
 }
 
