@@ -3,7 +3,7 @@ import styles from "../stylesheets/NgoDets.module.css"
 
 const NgoDets = () => {
   return (
-    <div>NgoDets</div>
+    <div>NgoDets123</div>
   )
 }
 
