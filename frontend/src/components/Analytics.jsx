@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "../stylesheets/Analytics.module.css";
-import MapComponent from "./MapComponent";
 
-const Anlaytics = () => {
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+
+const Analytics = () => {
   return (
     <div className={styles.mostouter}>
       <div className={styles.left}>
@@ -51,8 +52,22 @@ const Anlaytics = () => {
         <div className={styles.rightleft}>
           <div className={styles.graph1bg}>age wise graph shit here</div>
           <div className={styles.mapbg}>
-            <div className={styles.mapctn}>
-              <MapComponent />
+            <div className = {styles.map} id = "map">  
+              <MapContainer
+                center={[51.505, -0.09]}
+                zoom={13}
+                scrollWheelZoom={false}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={[51.505, -0.09]}>
+                  <Popup>
+                    A pretty CSS3 popup. <br /> Easily customizable.
+                  </Popup>
+                </Marker>
+              </MapContainer>
             </div>
           </div>
         </div>
@@ -64,4 +79,4 @@ const Anlaytics = () => {
   );
 };
 
-export default Anlaytics;
+export default Analytics;
