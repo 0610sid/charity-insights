@@ -123,6 +123,19 @@
     min-height: 46%;
 }
 
+.map{
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+}
+
+.mapctn{
+    padding: 1vw;
+    height: 100%;
+    width: 100%;
+    
+}
+
 .recentdot{
     background: rgba(255, 255, 255, 0.062);
     border-radius: 16px;

@@ -51,7 +51,9 @@ const Anlaytics = () => {
         <div className={styles.rightleft}>
           <div className={styles.graph1bg}>age wise graph shit here</div>
           <div className={styles.mapbg}>
-            <MapComponent />
+            <div className={styles.mapctn}>
+              <MapComponent />
+            </div>
           </div>
         </div>
         <div className={styles.rightright}>
