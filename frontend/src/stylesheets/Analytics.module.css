@@ -133,8 +133,14 @@
   min-height: 92%;
 }
 
-.map {
-  height: 80%;
-  width: 80%;
+.mapctn{
+  height: 100%;
+  width: 100%;
+  padding: 1vw;
+}
 
+.map {
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
 }

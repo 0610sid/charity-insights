@@ -52,11 +52,12 @@ const Analytics = () => {
         <div className={styles.rightleft}>
           <div className={styles.graph1bg}>age wise graph shit here</div>
           <div className={styles.mapbg}>
-            <div className = {styles.map} id = "map">  
+            <div className={styles.mapctn}>  
               <MapContainer
                 center={[51.505, -0.09]}
                 zoom={13}
                 scrollWheelZoom={false}
+                className = {styles.map}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
