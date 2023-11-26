@@ -13,8 +13,26 @@
 
 .left{
     width: 30vw;
-    background-color: #0f0820;
+    background : url("Hexagon.svg") no-repeat;
+    background-size: cover;
     height: 92vh;
     margin-top: 4vh;
     border-radius: 25px;
+}
+
+.right{
+    width: 60vw;
+    background : url("Hexagon.svg") no-repeat;
+    background-size: cover;
+    height: 92vh;
+    margin-top: 4vh;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.img{
+    padding: 1vw;
+    width: 25vw;
+    height: 25vw;
 }
