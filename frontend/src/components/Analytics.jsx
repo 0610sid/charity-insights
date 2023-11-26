@@ -1,9 +1,16 @@
 import React from "react";
 import styles from "../stylesheets/Analytics.module.css";
-
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import Map from "./Map";
 
 const Analytics = () => {
+  const markerData = [
+    { lat: 35.6846, lng: 139.7525, content: "Marker 1" },
+    { lat: 35.685, lng: 139.753, content: "Marker 2" },
+    // Add more marker data as needed
+  ];
+
+  const apiKey = "teiTnFtxd3HIKqyMTrl6"; // Replace with your actual API key
+
   return (
     <div className={styles.mostouter}>
       <div className={styles.left}>
@@ -53,22 +60,7 @@ const Analytics = () => {
           <div className={styles.graph1bg}>age wise graph shit here</div>
           <div className={styles.mapbg}>
             <div className={styles.mapctn}>  
-              <MapContainer
-                center={[51.505, -0.09]}
-                zoom={13}
-                scrollWheelZoom={false}
-                className = {styles.map}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={[51.505, -0.09]}>
-                  <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                  </Popup>
-                </Marker>
-              </MapContainer>
+              <Map markers={markerData} apiKey={apiKey} />
             </div>
           </div>
         </div>
