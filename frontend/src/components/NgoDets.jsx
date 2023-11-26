@@ -44,8 +44,11 @@ const NgoDets = () => {
         </div>
 
         <div className={styles.right}>
-          <p>Latitude : {location.latitude}</p>
-          <p>Longitude : {location.longitude}</p>
+          <div className={styles.rightbg}>
+            <p>Latitude : {location.latitude}</p>
+            <p>Longitude : {location.longitude}</p>
+            <input placeholder='Name' type='text' className={styles.input}/>
+          </div>
         </div>
     </div>
   )
