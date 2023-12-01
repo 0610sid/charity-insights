@@ -4,7 +4,7 @@ import Map from "./Map";
 
 const Analytics = () => {
   const markerData = [
-    { lat: 35.6846, lng: 139.7525, content: "Marker 1" },
+    { lat: 35.6846, lng: 129.7525, content: "Marker 1" },
     { lat: 35.685, lng: 139.753, content: "Marker 2" },
     // Add more marker data as needed
   ];

@@ -90,7 +90,7 @@
 }
 
 .rightleft {
-  width: 47%;
+  width: 57%;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -98,7 +98,7 @@
 }
 
 .rightright {
-  width: 47%;
+  width: 37%;
   display: flex;
   align-items: center;
 }
@@ -110,7 +110,7 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(0px);
   width: 95%;
-  min-height: 46%;
+  height: 36%;
 }
 
 .mapbg {
@@ -120,7 +120,7 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(0px);
   width: 95%;
-  min-height: 46%;
+  height: 56%;
 }
 
 .recentdot {
