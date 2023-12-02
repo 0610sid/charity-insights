@@ -8,8 +8,7 @@ import Dashboard from "./components/Dashboard"
 import Signup from './components/SignUp'
 import Analaytics from './components/Analytics'
 import NgoDets from './components/NgoDets'
-import Map from './components/Map'
-
+import AdminDashboard from './components/AdminDashboard'
 
 function App() {
 
@@ -22,7 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/analytics" element={<Analaytics/>}/>
-          <Route path='/map' element={<Map/>}/>
+          <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
           <Route path='/ngodeets' element={<NgoDets/>}/>
           <Route path="*" element={<Error404 />} />
         </Routes>
