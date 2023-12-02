@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from 'react';
 import styles from "../stylesheets/Analytics.module.css";
 import Map from "./Map";
+import { createRoot } from 'react-dom/client';
+import { AgChartsReact } from 'ag-charts-react';
+
 
 const Analytics = () => {
   const markerData = [
@@ -10,6 +13,633 @@ const Analytics = () => {
   ];
 
   const apiKey = "teiTnFtxd3HIKqyMTrl6"; // Replace with your actual API key
+  const [options, setOptions] = useState({
+    title: {
+        text: 'Race demographics',
+    },
+    data: [
+      {
+          age: 20,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 19,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 31,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 19,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 33,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 29,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 29,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 19,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 29,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 29,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 29,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 18,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 29,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 18,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 30,
+      },
+      {
+          age: 19,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 30,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 18,
+      },
+      {
+          age: 31,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 29,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 29,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 17,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 22,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 30,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 18,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 21,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 23,
+      },
+      {
+          age: 32,
+      },
+      {
+          age: 19,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 20,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 29,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 25,
+      },
+      {
+          age: 26,
+      },
+      {
+          age: 24,
+      },
+      {
+          age: 28,
+      },
+      {
+          age: 27,
+      },
+      {
+          age: 22,
+      },
+  ],
+    series: [
+        {
+            type: 'histogram',
+            xKey: 'age',
+            xName: 'Participant Age',
+        },
+    ],
+    axes: [
+        {
+            type: 'number',
+            position: 'bottom',
+            title: { text: 'Age band (years)' },
+            tick: { interval: 2 },
+        },
+        {
+            type: 'number',
+            position: 'left',
+            title: { text: 'Number of participants' },
+        },
+    ],
+});
 
   return (
     <div className={styles.mostouter}>
@@ -57,7 +687,10 @@ const Analytics = () => {
 
       <div className={styles.right}>
         <div className={styles.rightleft}>
-          <div className={styles.graph1bg}>age wise graph shit here</div>
+          <div className={styles.graph1bg}>
+            age wise graph shit here
+            <AgChartsReact options={options} />
+          </div>
           <div className={styles.mapbg}>
             <div className={styles.mapctn}>  
               <Map markers={markerData} apiKey={apiKey} />
