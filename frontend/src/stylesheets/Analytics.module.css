@@ -101,6 +101,8 @@
   width: 37%;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .graph1bg {
@@ -130,7 +132,17 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(0px);
   width: 95%;
-  min-height: 92%;
+  min-height: 40%;
+}
+
+.graph2bg {
+  background: rgba(255, 255, 255, 0.062);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(255, 255, 255, 0.147);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(0px);
+  width: 95%;
+  min-height: 48%;
 }
 
 .mapctn{
@@ -143,4 +155,10 @@
   height: 100%;
   width: 100%;
   border-radius: 25px;
+}
+
+.graphctn{
+  padding: 1vw;
+  height: 100%;
+  width: 100%;
 }
