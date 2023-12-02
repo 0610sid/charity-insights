@@ -9,6 +9,7 @@ const Analytics = () => {
   const markerData = [
     { lat: 35.6846, lng: 129.7525, content: "Marker 1" },
     { lat: 35.685, lng: 139.753, content: "Marker 2" },
+    { lat: 19.0262545 , lng: 72.863352, content: "Marker 3" },
     // Add more marker data as needed
   ];
 
