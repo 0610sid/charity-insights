@@ -42,6 +42,13 @@
   padding-top: 5%;
 }
 
+.heading2 {
+  font-weight: 400;
+  font-size: 2.5rem;
+  text-align: center;
+  padding-top: 1%;
+}
+
 .form {
   height: 30%;
   padding: 4%;
@@ -50,6 +57,11 @@
 .field {
   position: relative;
   padding: 10% 0%;
+}
+
+.field2 {
+  position: relative;
+  padding: 7% 0%;
 }
 
 .img {

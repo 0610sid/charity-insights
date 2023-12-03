@@ -2,13 +2,14 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 import Home from "./components/Home"
-import Login from "./components/Login"
+import Login from "./components/NgoLogin"
 import Error404 from "./components/Error404"
 import Dashboard from "./components/Dashboard"
-import Signup from './components/SignUp'
+import Signup from './components/NgoSignUp'
 import Analaytics from './components/Analytics'
 import NgoDets from './components/NgoDets'
 import AdminDashboard from './components/AdminDashboard'
+import AdminLogin from './components/AdminLogin'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/analytics" element={<Analaytics/>}/>
           <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+          <Route path='/admin/login' element={<AdminLogin/>}/>
           <Route path='/ngodeets' element={<NgoDets/>}/>
           <Route path="*" element={<Error404 />} />
         </Routes>

@@ -9,7 +9,7 @@ import { SyncLoader } from 'react-spinners'
 
 const Login = () => {
 
-    const [abha, setabha] = useState(0)
+    const [username, setusername] = useState("")
     const [pass, setpass] = useState("")
 
     const [error, seterror] = useState(null)
@@ -18,7 +18,7 @@ const Login = () => {
     const navigate = useNavigate()
 
     const onchange1 = (event) => {
-        setabha(event.target.value)
+        setusername(event.target.value)
     }
 
     const onchange2 = (event) => {
@@ -30,11 +30,11 @@ const Login = () => {
 
         setloader(true)
 
-        const response = await fetch("http://52.66.197.159:5000/login",
+        const response = await fetch("http://localhost:5000/login",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ abhaid: abha, password: pass }),
+                body: JSON.stringify({ username: username, password: pass }),
             }
         )
 
@@ -43,7 +43,7 @@ const Login = () => {
         if (json.success) {
             setloader(false)
             localStorage.setItem("Token", json.authToken)
-            navigate("/dashboard")
+            navigate("/analytics")
         }
 
         if (json.error) {
@@ -64,7 +64,7 @@ const Login = () => {
                 <form className={styles.form} onSubmit={handlesubmit}>
                     <div className={styles.field}>
                         <img src={user} className={styles.img} />
-                        <input className={styles.input} placeholder='Username' type='number' onChange={onchange1} />
+                        <input className={styles.input} placeholder='Username' type='text' onChange={onchange1} />
                     </div>
 
                     <div className={styles.field}>
