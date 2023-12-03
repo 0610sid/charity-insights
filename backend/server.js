@@ -11,8 +11,7 @@ const bcrypt = require('bcrypt')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
 
-const otpgen = require('otp-generators')
-const Mailjet = require('node-mailjet')
+const adminroutes = require('./routes/AdminRoutes') 
 
 const db = require('./config/dbConfig')
 
@@ -28,6 +27,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 app.use(express.json())
 app.use(bodyParser.json())
+
+app.use('/admin/' , adminroutes)
 
 app.post('/signup', async (req, res) => {
     try {

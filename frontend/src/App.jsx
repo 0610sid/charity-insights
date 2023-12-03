@@ -13,6 +13,7 @@ import AdminLogin from './components/AdminLogin'
 import Verification from './components/Verification'
 
 import NgoRoutes from './utils/NgoRoutes'
+import AdminRoutes from './utils/AdminRoutes'
 
 function App() {
 
@@ -27,7 +28,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+          <Route element={<AdminRoutes/>}>
+            <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+          </Route>
           <Route path='/admin/login' element={<AdminLogin/>}/>
           <Route path='/ngodeets' element={<NgoDets/>}/>
           <Route path='/verification' element={<Verification/>}/>

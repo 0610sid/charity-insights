@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom'
 
 import { SyncLoader } from 'react-spinners'
 
-const AdminLogin = () => {
+const Login = () => {
 
-    const [abha, setabha] = useState(0)
+    const [username, setusername] = useState("")
     const [pass, setpass] = useState("")
 
     const [error, seterror] = useState(null)
@@ -18,7 +18,7 @@ const AdminLogin = () => {
     const navigate = useNavigate()
 
     const onchange1 = (event) => {
-        setabha(event.target.value)
+        setusername(event.target.value)
     }
 
     const onchange2 = (event) => {
@@ -30,11 +30,11 @@ const AdminLogin = () => {
 
         setloader(true)
 
-        const response = await fetch("http://52.66.197.159:5000/login",
+        const response = await fetch("http://localhost:5000/admin/login",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ abhaid: abha, password: pass }),
+                body: JSON.stringify({ username: username, password: pass }),
             }
         )
 
@@ -43,7 +43,7 @@ const AdminLogin = () => {
         if (json.success) {
             setloader(false)
             localStorage.setItem("Token", json.authToken)
-            navigate("/dashboard")
+            navigate("/admin/dashboard")
         }
 
         if (json.error) {
@@ -59,12 +59,12 @@ const AdminLogin = () => {
     return (
         <div className={styles.outer}>
             <div className={styles.container}>
-                <p className={styles.heading}>Login</p>
+                <p className={styles.heading}>Admin</p>
 
                 <form className={styles.form} onSubmit={handlesubmit}>
                     <div className={styles.field}>
                         <img src={user} className={styles.img} />
-                        <input className={styles.input} placeholder='Username' type='number' onChange={onchange1} />
+                        <input className={styles.input} placeholder='Username' type='text' onChange={onchange1} />
                     </div>
 
                     <div className={styles.field}>
@@ -96,4 +96,4 @@ const AdminLogin = () => {
     )
 }
 
-export default AdminLogin
+export default Login

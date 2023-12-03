@@ -1,12 +1,21 @@
 import React from 'react'
 import styles from '../stylesheets/Admin.module.css'
 
+import { useNavigate } from 'react-router-dom'
+
 const AdminDashboard = () => {
-  return (
-    <>
     
+    const navigate = useNavigate()
+
+    const logout = () =>{
+        localStorage.removeItem("Token")
+        navigate("/")
+    }
+
+    return (
+    <>
     <div className={styles.nav}>
-        <button className={styles.buttons1}>Logout</button>
+        <button className={styles.buttons1} onClick={logout}>Logout</button>
     </div>
     
     <div className={styles.outer}>
