@@ -160,7 +160,7 @@ const Analytics = () => {
       {
         type: "number",
         position: "left",
-        title: { text: "Amount of Donations" },
+        title: { text: "Number of Donations" },
       },
     ],
   });
