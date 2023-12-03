@@ -16,13 +16,11 @@ const Mailjet = require('node-mailjet')
 
 const db = require('./config/dbConfig')
 
-const createToken = (id , role) => {
-    return jwt.sign({ id , role }, process.env.SECRET, {
+const createToken = (id , role , verify) => {
+    return jwt.sign({ id , role , verify }, process.env.SECRET, {
         expiresIn: 3 * 24 * 60 * 60
     })
 }
-
-const mailjet = new Mailjet.apiConnect(process.env.MJ_PUBLIC, process.env.MJ_SECRET)
 
 const app = express()
 
@@ -60,7 +58,7 @@ app.post('/signup', async (req, res) => {
                 if (error) {
                     return res.status(500).json({ error: `Error in insertion: ${error}` })
                 }
-
+                
                 return res.json({ success: true })
             })
         }
@@ -88,10 +86,6 @@ app.post('/login', async (req, res) => {
             return res.status(400).json({ error: 'User not found' })
         }
 
-        if (!rows[0].is_verified) {
-            return res.status(400).json({ error: 'Kindly wait for your verification' })
-        }
-
         const dbhasp = rows[0].password
 
         const match = await bcrypt.compare(req.body.password, dbhasp)
@@ -99,7 +93,7 @@ app.post('/login', async (req, res) => {
         if (!match) {
             return res.status(400).json({ error: 'Password incorrect' })
         } else {
-            const token = createToken(req.body.abhaid)
+            const token = createToken(rows[0].ngo_id , 'Ngo' , rows[0].is_verified)
             return res.json({ success: true, authToken: token })
         }
 

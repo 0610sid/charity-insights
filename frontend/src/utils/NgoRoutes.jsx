@@ -1,13 +1,13 @@
 import { Outlet, Navigate } from "react-router-dom"
-import jwt_decode from 'jwt-decode'
+import {jwtDecode} from 'jwt-decode'
 
 const NgoRoutes = () => {
 
     const returnrole = (reqtoken) => {
         try {
             if (reqtoken) {
-                var decoded = jwt_decode(reqtoken)
-                return (decoded.note)
+                var decoded = jwtDecode(reqtoken)
+                return (decoded.role)
             }
             else {
                 return (null)
@@ -15,11 +15,27 @@ const NgoRoutes = () => {
         } catch (error) {
             return (null)
         }
-        
     }
 
+    const returnverf = (reqtoken) => {
+        try {
+            if (reqtoken) {
+                var decoded = jwtDecode(reqtoken)
+                return (decoded.verify)
+            }
+            else {
+                return (null)
+            }    
+        } catch (error) {
+            return (null)
+        }
+    }
+
+    var role = returnrole(localStorage.getItem("Token"))
+    var verification = returnverf(localStorage.getItem("Token"))
+
   return (
-    <div>NgoRoutes</div>
+    (localStorage.getItem("Token") && role === 'Ngo') ? ( verification ? <Outlet /> : <Navigate to="/verification" />) : <Navigate to="/login" />
   )
 }
 
