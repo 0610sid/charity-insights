@@ -1,0 +1,32 @@
+.mainErrorPage {
+    min-height: 600px;
+    margin: 0px auto;
+    width: auto;
+    max-width: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .svg {
+    /* Add any styles for the SVG if needed */
+  }
+  
+  .errorTitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2D3F5B;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .errorSubtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: #2D3F5B;
+    margin-top: 10px;
+    text-align: center;
+  }
+  

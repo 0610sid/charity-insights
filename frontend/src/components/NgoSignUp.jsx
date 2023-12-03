@@ -5,6 +5,8 @@ import user from "../assets/user.png"
 import password from "../assets/password.png"
 import email from "../assets/email.png"
 import otp from "../assets/otp.png"
+import building from "../assets/building.png"
+import information from "../assets/information.png"
 
 import { useNavigate } from "react-router-dom"
 import { SyncLoader } from "react-spinners"
@@ -75,7 +77,7 @@ const Signup = () => {
 
           <form className={styles.form} onSubmit={handlesubmit1}>
             <div className={styles.field2}>
-              <img src={email} className={styles.img} />
+              <img src={building} className={styles.img} />
               <input
                 className={styles.input}
                 placeholder="Ngo's Name"
@@ -115,7 +117,7 @@ const Signup = () => {
             </div>
 
             <div className={styles.field2}>
-              <img src={email} className={styles.img2} />
+              <img src={information} className={styles.img2} />
               <input
                 className={styles.input}
                 placeholder="Description"
