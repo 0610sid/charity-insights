@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "../stylesheets/Analytics.module.css";
 import Map from "./Map";
 import { createRoot } from "react-dom/client";
 import { AgChartsReact } from "ag-charts-react";
+import { jwtDecode } from "jwt-decode";
+
+import * as maptilersdk from "@maptiler/sdk";
+import "@maptiler/sdk/dist/maptiler-sdk.css";
 
 const Analytics = () => {
-  const markerData = [
-    { lat: 35.6846, lng: 129.7525, content: "Marker 1" },
-    { lat: 35.685, lng: 139.753, content: "Marker 2" },
-    { lat: 19.0262545, lng: 72.863352, content: "Marker 3" },
-    // Add more marker data as needed
-  ];
+  const [markerData, setmakerData] = useState([]);
+  var decoded = jwtDecode(localStorage.getItem("Token"));
 
-  const apiKey = "teiTnFtxd3HIKqyMTrl6"; // Replace with your actual API key
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const mumbai = { lng: 72.8, lat: 19.1 };
+  const zoom = 10;
+
+  const [totald, settotald] = useState([]);
+  const [todtotal, settodtotal] = useState([]);
 
   const [options3, setOptions3] = useState({
     data: [
@@ -165,17 +171,109 @@ const Analytics = () => {
     ],
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/getmap/cords/${decoded.id}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const json = await response.json();
+        setmakerData(json.data);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    if (!map.current) {
+      maptilersdk.config.apiKey = "teiTnFtxd3HIKqyMTrl6";
+
+      map.current = new maptilersdk.Map({
+        container: mapContainer.current,
+        style: maptilersdk.MapStyle.STREETS,
+        center: [mumbai.lng, mumbai.lat],
+        zoom: zoom,
+      });
+    }
+
+    if (markerData && markerData.length > 0) {
+      markerData.forEach((markerInfo) => {
+        const { lng, lat, content } = markerInfo;
+        const marker = new maptilersdk.Marker({ color: "#FF0000" })
+          .setLngLat([lat, lng])
+          .addTo(map.current);
+
+        const popup = new maptilersdk.Popup({ offset: 25 })
+          .setHTML(`<h3>${content}</h3>`)
+          .setMaxWidth("300px");
+
+        marker.setPopup(popup);
+      });
+    }
+
+    fetchData();
+  }, [markerData]);
+
+  useEffect(() => {
+    const fetchData1 = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/total/donations/${decoded.id}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const json = await response.json();
+        settotald(json.data);
+        console.log(totald);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    const fetchData2 = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/today/donations/${decoded.id}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const json = await response.json();
+        settodtotal(json.data);
+        console.log(todtotal);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    fetchData1();
+    fetchData2();
+  } , [totald , todtotal]);
+
   return (
     <div className={styles.mostouter}>
       <div className={styles.left}>
         <div className={styles.totalsum}>
           <p className={styles.tot}>Total Donations :</p>
-          <p className={styles.fig}>20,XXX</p>
+          {totald.map((item, index) => (
+            <p className={styles.fig} key={index}>{item.total}</p>
+          ))}
         </div>
 
         <div className={styles.totalsum}>
           <p className={styles.tot}>Today's Donation :</p>
-          <p className={styles.fig}>20,XXX</p>
+          {todtotal.map((item, index) => (
+            <p className={styles.fig} key={index}>{item.todaytotal}</p>
+          ))}
         </div>
 
         <div className={styles.totalsum}>
@@ -217,9 +315,7 @@ const Analytics = () => {
             </div>
           </div>
           <div className={styles.mapbg}>
-            <div className={styles.mapctn}>
-              <Map markers={markerData} apiKey={apiKey} />
-            </div>
+            <div ref={mapContainer} className={styles.mapctn}></div>
           </div>
         </div>
         <div className={styles.rightright}>

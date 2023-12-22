@@ -8,8 +8,8 @@ import styles from "../stylesheets/Map.module.css";
 export default function Map({ markers, apiKey }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const tokyo = { lng: 139.753, lat: 35.6844 };
-  const zoom = 14;
+  const mumbai = { lng: 72.8, lat: 19.1 };
+  const zoom = 10;
 
   useEffect(() => {
     if (map.current) return; // stops map from initializing more than once
@@ -19,13 +19,12 @@ export default function Map({ markers, apiKey }) {
     map.current = new maptilersdk.Map({
       container: mapContainer.current,
       style: maptilersdk.MapStyle.STREETS,
-      center: [tokyo.lng, tokyo.lat],
+      center: [mumbai.lng, mumbai.lat],
       zoom: zoom,
     });
 
     markers.forEach((markerInfo) => {
       const { lng, lat, content } = markerInfo;
-
       const marker = new maptilersdk.Marker({ color: "#FF0000" })
         .setLngLat([lng, lat])
         .addTo(map.current);
@@ -38,7 +37,7 @@ export default function Map({ markers, apiKey }) {
       // Attach the popup to the marker
       marker.setPopup(popup);
     });
-  }, [markers, apiKey, tokyo.lng, tokyo.lat, zoom]);
+  }, [markers, apiKey, mumbai.lng, mumbai.lat, zoom]);
 
   return (
     <div className={styles.mapwrap}>
