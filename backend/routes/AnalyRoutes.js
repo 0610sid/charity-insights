@@ -78,4 +78,14 @@ router.post('/occupation/donations/:id' , async(req , res) =>{
     }
 })
 
+router.post('/gender/donations/:id' , async(req , res) =>{
+    try {
+        const query = 'SELECT SUM(donation.amount_paid) AS males FROM donation JOIN users ON donation.user_id = users.user_id WHERE donation.ngo_id = $1 AND users.gender = \'Male\''
+        const { rows } = await db.query(query, [req.params.id])
+        return res.json({data : rows})
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+})
+
 module.exports = router
