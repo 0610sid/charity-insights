@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 
 import * as maptilersdk from "@maptiler/sdk";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
+import BarChart from "./BarChart";
 
 const Analytics = () => {
   const [markerData, setmakerData] = useState([]);
@@ -303,7 +304,7 @@ const Analytics = () => {
         </div>
         <div className={styles.rightright}>
           <div className={styles.graph2bg}>
-            <AgChartsReact options={options2} />
+            <BarChart />
           </div>
           <div className={styles.recentdot}>
             <AgChartsReact options={options3} />
