@@ -19,6 +19,10 @@ const Analytics = () => {
 
   const [totald, settotald] = useState([]);
   const [todtotal, settodtotal] = useState([]);
+  const [topdonation, settopdonation] = useState([]);
+
+  const [agearr , setagearr] = useState([])
+  const [agearr2, setagearr2] = useState([])
 
   const [options3, setOptions3] = useState({
     data: [
@@ -81,74 +85,7 @@ const Analytics = () => {
     title: {
       text: "Age demographics",
     },
-    data: [
-      {
-        age: 25,
-      },
-      {
-        age: 25,
-      },
-      {
-        age: 18,
-      },
-      {
-        age: 23,
-      },
-      {
-        age: 27,
-      },
-      {
-        age: 26,
-      },
-      {
-        age: 21,
-      },
-      {
-        age: 25,
-      },
-      {
-        age: 23,
-      },
-      {
-        age: 32,
-      },
-      {
-        age: 19,
-      },
-      {
-        age: 25,
-      },
-      {
-        age: 20,
-      },
-      {
-        age: 25,
-      },
-      {
-        age: 29,
-      },
-      {
-        age: 25,
-      },
-      {
-        age: 25,
-      },
-      {
-        age: 17,
-      },
-      {
-        age: 24,
-      },
-      {
-        age: 28,
-      },
-      {
-        age: 27,
-      },
-      {
-        age: 22,
-      },
-    ],
+    data: agearr,
     series: [
       {
         type: "histogram",
@@ -170,6 +107,8 @@ const Analytics = () => {
       },
     ],
   });
+
+  //map shit below
 
   useEffect(() => {
     const fetchData = async () => {
@@ -218,6 +157,8 @@ const Analytics = () => {
     fetchData();
   }, [markerData]);
 
+  //top donation , total donation , today donation
+
   useEffect(() => {
     const fetchData1 = async () => {
       try {
@@ -231,7 +172,6 @@ const Analytics = () => {
 
         const json = await response.json();
         settotald(json.data);
-        console.log(totald);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -249,7 +189,23 @@ const Analytics = () => {
 
         const json = await response.json();
         settodtotal(json.data);
-        console.log(todtotal);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    const fetchData3 = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/top/donations/${decoded.id}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const json = await response.json();
+        settopdonation(json.data);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -257,7 +213,34 @@ const Analytics = () => {
 
     fetchData1();
     fetchData2();
-  } , [totald , todtotal]);
+    fetchData3();
+
+  }, [totald, todtotal, topdonation]);
+
+  //age shit below
+
+  useEffect(() => {
+    const fetchData1 = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/age/donations/${decoded.id}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const json = await response.json();
+        setagearr(json.data);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    console.log(agearr)
+    fetchData1();
+
+  }, [agearr]);
 
   return (
     <div className={styles.mostouter}>
@@ -278,32 +261,18 @@ const Analytics = () => {
 
         <div className={styles.totalsum}>
           <p className={styles.heading}>Top Donations</p>
-          <div>
-            <div className={styles.nametag}>
-              <p className={styles.rank}>1.</p>
-              <p>Name XXX YYY</p>
-            </div>
-            <p className={styles.location}>Dombivali , Smart City</p>
-            <p className={styles.amount}>Amount : 999,XXX</p>
-          </div>
 
-          <div>
-            <div className={styles.nametag}>
-              <p className={styles.rank}>2.</p>
-              <p>Name XXX YYY</p>
+          {topdonation.map((donation, index) => (
+            <div key={index}>
+              <div className={styles.nametag}>
+                <p className={styles.rank}>{index + 1}</p>
+                <p>{donation.donor}</p>
+              </div>
+              <p className={styles.location}>{donation.email}</p>
+              <p className={styles.amount}>Amount : {donation.amt}</p>
             </div>
-            <p className={styles.location}>Dombivali , Smart City</p>
-            <p className={styles.amount}>Amount : 999,XXX</p>
-          </div>
+          ))}
 
-          <div>
-            <div className={styles.nametag}>
-              <p className={styles.rank}>3.</p>
-              <p>Name XXX YYY</p>
-            </div>
-            <p className={styles.location}>Dombivali , Smart City</p>
-            <p className={styles.amount}>Amount : 999,XXX</p>
-          </div>
         </div>
       </div>
 

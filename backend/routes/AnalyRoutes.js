@@ -40,7 +40,7 @@ router.post('/today/donations/:id' , async(req , res) =>{
 
 router.post('/top/donations/:id' , async(req , res) =>{
     try {
-        const query = 'SELECT donation.amount_paid, users.user_name AS donor_name, users.location_latitude, users.location_longitude FROM ngo JOIN donation ON ngo.ngo_id = donation.ngo_id JOIN users ON donation.user_id = users.user_id WHERE ngo.ngo_id = $1 ORDER BY donation.amount_paid DESC LIMIT 3'
+        const query = 'SELECT donation.amount_paid as amt, users.user_name AS donor, users.email as email FROM ngo JOIN donation ON ngo.ngo_id = donation.ngo_id JOIN users ON donation.user_id = users.user_id WHERE ngo.ngo_id = $1 ORDER BY donation.amount_paid DESC LIMIT 3'
         const { rows } = await db.query(query, [req.params.id])
         return res.json({data : rows})
     } catch (error) {
@@ -48,6 +48,15 @@ router.post('/top/donations/:id' , async(req , res) =>{
     }
 })
 
+router.post('/age/donations/:id' , async(req , res) =>{
+    try {
+        const query = 'SELECT users.age FROM users JOIN donation ON users.user_id = donation.user_id WHERE donation.ngo_id = $1'
+        const { rows } = await db.query(query, [req.params.id])
+        return res.json({data : rows})
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+})
 
 
 module.exports = router
