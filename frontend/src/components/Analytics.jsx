@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "../stylesheets/Analytics.module.css";
-import Map from "./Map";
 import { createRoot } from "react-dom/client";
 import { AgChartsReact } from "ag-charts-react";
 import { jwtDecode } from "jwt-decode";
@@ -22,16 +21,10 @@ const Analytics = () => {
   const [topdonation, settopdonation] = useState([]);
 
   const [agearr , setagearr] = useState([])
-  const [agearr2, setagearr2] = useState([])
+  const [occup , setoccup] = useState([])
 
   const [options3, setOptions3] = useState({
-    data: [
-      { asset: "Employed", amount: 60000 },
-      { asset: "Unemployed", amount: 40000 },
-      { asset: "Self-Employed", amount: 7000 },
-      { asset: "Student", amount: 5000 },
-      { asset: "Retired", amount: 3000 },
-    ],
+    data: occup,
     title: {
       text: "Occupation Composition",
     },
@@ -231,7 +224,8 @@ const Analytics = () => {
         );
 
         const json = await response.json();
-        setagearr(json.data);
+        const tranformarr = json.data.map(age => ({"age" : age.age}))
+        setagearr(tranformarr);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -240,7 +234,27 @@ const Analytics = () => {
     console.log(agearr)
     fetchData1();
 
-  }, [agearr]);
+    const fetchData2 = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/occupation/donations/${decoded.id}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const json = await response.json();
+        setoccup(json.data);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    console.log(occup)
+    fetchData2();
+
+  }, [agearr , occup]);
 
   return (
     <div className={styles.mostouter}>

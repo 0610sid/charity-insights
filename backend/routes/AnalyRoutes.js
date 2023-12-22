@@ -58,5 +58,24 @@ router.post('/age/donations/:id' , async(req , res) =>{
     }
 })
 
+router.post('/age/donations/:id' , async(req , res) =>{
+    try {
+        const query = 'SELECT users.age FROM users JOIN donation ON users.user_id = donation.user_id WHERE donation.ngo_id = $1'
+        const { rows } = await db.query(query, [req.params.id])
+        return res.json({data : rows})
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+})
+
+router.post('/occupation/donations/:id' , async(req , res) =>{
+    try {
+        const query = 'SELECT users.occupation AS asset, SUM(donation.amount_paid) AS amount FROM donation JOIN users ON donation.user_id = users.user_id WHERE donation.ngo_id = $1 GROUP BY users.occupation'
+        const { rows } = await db.query(query, [req.params.id])
+        return res.json({data : rows})
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+})
 
 module.exports = router
