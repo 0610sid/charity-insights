@@ -7,6 +7,10 @@ import { jwtDecode } from "jwt-decode";
 import * as maptilersdk from "@maptiler/sdk";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import BarChart from "./BarChart";
+import PieChart from "./PieChart";
+import LineChart from "./LineChart";
+
+
 
 const Analytics = () => {
   const [markerData, setmakerData] = useState([]);
@@ -21,8 +25,8 @@ const Analytics = () => {
   const [todtotal, settodtotal] = useState([]);
   const [topdonation, settopdonation] = useState([]);
 
-  const [agearr , setagearr] = useState([])
-  const [occup , setoccup] = useState([])
+  const [agearr, setagearr] = useState([]);
+  const [occup, setoccup] = useState([]);
 
   const [options3, setOptions3] = useState({
     data: occup,
@@ -208,7 +212,6 @@ const Analytics = () => {
     fetchData1();
     fetchData2();
     fetchData3();
-
   }, [totald, todtotal, topdonation]);
 
   //age shit below
@@ -225,14 +228,14 @@ const Analytics = () => {
         );
 
         const json = await response.json();
-        const tranformarr = json.data.map(age => ({"age" : age.age}))
+        const tranformarr = json.data.map((age) => ({ age: age.age }));
         setagearr(tranformarr);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
     };
 
-    console.log(agearr)
+    console.log(agearr);
     fetchData1();
 
     const fetchData2 = async () => {
@@ -252,10 +255,9 @@ const Analytics = () => {
       }
     };
 
-    console.log(occup)
+    console.log(occup);
     fetchData2();
-
-  }, [agearr , occup]);
+  }, [agearr, occup]);
 
   return (
     <div className={styles.mostouter}>
@@ -263,14 +265,18 @@ const Analytics = () => {
         <div className={styles.totalsum}>
           <p className={styles.tot}>Total Donations :</p>
           {totald.map((item, index) => (
-            <p className={styles.fig} key={index}>{item.total}</p>
+            <p className={styles.fig} key={index}>
+              {item.total}
+            </p>
           ))}
         </div>
 
         <div className={styles.totalsum}>
           <p className={styles.tot}>Today's Donation :</p>
           {todtotal.map((item, index) => (
-            <p className={styles.fig} key={index}>{item.todaytotal}</p>
+            <p className={styles.fig} key={index}>
+              {item.todaytotal}
+            </p>
           ))}
         </div>
 
@@ -287,7 +293,6 @@ const Analytics = () => {
               <p className={styles.amount}>Amount : {donation.amt}</p>
             </div>
           ))}
-
         </div>
       </div>
 
@@ -295,7 +300,7 @@ const Analytics = () => {
         <div className={styles.rightleft}>
           <div className={styles.graph1bg}>
             <div className={styles.graphctn}>
-              <AgChartsReact options={options} />
+              <LineChart />  
             </div>
           </div>
           <div className={styles.mapbg}>
@@ -307,7 +312,7 @@ const Analytics = () => {
             <BarChart />
           </div>
           <div className={styles.recentdot}>
-            <AgChartsReact options={options3} />
+            <PieChart />
           </div>
         </div>
       </div>
