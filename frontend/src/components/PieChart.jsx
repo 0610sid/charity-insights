@@ -30,7 +30,7 @@ const PieChart = () => {
         setunemp(json.Unemployed);
         setret(json.Retired);
         setstd(json.Student)
-        setselfemp(json.Self-Employed)
+        setselfemp(json.SelfEmployed)
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -42,7 +42,7 @@ const PieChart = () => {
     <div style={{height:'100%' , width:'100%'}}>
       <Pie
         data={{
-          labels: ["Employed", "UnEmployed", "Self-Employed", "Student", "Retired"],
+          labels: ["Employed", "UnEmployed", "SelfEmployed", "Student", "Retired"],
           datasets: [
             {
               label: "Donations",
@@ -50,8 +50,11 @@ const PieChart = () => {
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
               ],
-              borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+              borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)","rgba(153, 102, 255, 1)"],
               borderWidth: 1,
             },
           ],
@@ -70,7 +73,7 @@ const PieChart = () => {
             xAxes: [
               {
                 type: "category",
-                labels: ["Employed", "UnEmployed", "Self-Employed", "Student", "Retired"],
+                labels: ["Employed", "UnEmployed", "SelfEmployed", "Student", "Retired"],
                 ticks: {
                   beginAtZero: true,
                 },
