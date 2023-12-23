@@ -28,15 +28,19 @@ router.post('/total/donations/:id' , async(req , res) =>{
     }
 })
 
-router.post('/today/donations/:id' , async(req , res) =>{
+router.post('/today/donations/:id', async (req, res) => {
     try {
-        const query = 'SELECT SUM(donation.amount_paid) AS todaytotal FROM ngo JOIN donation ON ngo.ngo_id = donation.ngo_id WHERE ngo.ngo_id = $1 AND CAST(donation.date AS date) = CURRENT_DATE GROUP BY ngo.ngo_id, ngo.ngo_name';
-        const { rows } = await db.query(query, [req.params.id])
-        return res.json({data : rows})
+        const query = 'SELECT COALESCE(SUM(donation.amount_paid), 0) AS todaytotal FROM ngo JOIN donation ON ngo.ngo_id = donation.ngo_id WHERE ngo.ngo_id = $1 AND CAST(donation.date AS date) = CURRENT_DATE GROUP BY ngo.ngo_id, ngo.ngo_name';
+        const { rows } = await db.query(query, [req.params.id]);
+
+        const data = rows.length > 0 ? rows : [{ todaytotal: 0 }];
+
+        return res.json({ data });
     } catch (error) {
-        return res.status(400).json({ error: error.message })
+        return res.status(400).json({ error: error.message });
     }
-})
+});
+
 
 router.post('/top/donations/:id' , async(req , res) =>{
     try {
@@ -78,14 +82,23 @@ router.post('/occupation/donations/:id' , async(req , res) =>{
     }
 })
 
-router.post('/gender/donations/:id' , async(req , res) =>{
+router.post('/gender/donations/:id', async (req, res) => {
     try {
-        const query = 'SELECT SUM(donation.amount_paid) AS males FROM donation JOIN users ON donation.user_id = users.user_id WHERE donation.ngo_id = $1 AND users.gender = \'Male\''
-        const { rows } = await db.query(query, [req.params.id])
-        return res.json({data : rows})
+        const query = 'SELECT COALESCE(SUM(donation.amount_paid), 0) as sum FROM donation JOIN users ON donation.user_id = users.user_id WHERE donation.ngo_id = $1 AND users.gender = \'Male\' ';
+        const { rows: maleRows } = await db.query(query, [req.params.id]);
+
+        const query2 = 'SELECT COALESCE(SUM(donation.amount_paid), 0) as sum FROM donation JOIN users ON donation.user_id = users.user_id WHERE donation.ngo_id = $1 AND users.gender = \'Female\' ';
+        const { rows: femaleRows } = await db.query(query2, [req.params.id]);
+
+        const query3 = 'SELECT COALESCE(SUM(donation.amount_paid), 0) as sum FROM donation JOIN users ON donation.user_id = users.user_id WHERE donation.ngo_id = $1 AND users.gender = \'Others\' ';
+        const { rows: othersRows } = await db.query(query3, [req.params.id]);
+
+        return res.json({ male: maleRows[0].sum, female: femaleRows[0].sum, others: othersRows[0].sum });
     } catch (error) {
-        return res.status(400).json({ error: error.message })
+        return res.status(400).json({ error: error.message });
     }
-})
+});
+
+
 
 module.exports = router

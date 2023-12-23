@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -6,19 +6,48 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js";
+import { jwtDecode } from "jwt-decode";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement)
+ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 const BarChart = () => {
+  const [datam, setdatam] = useState(0);
+  const [dataf, setdataf] = useState(0);
+  const [datao, setdatao] = useState(0);
+  var decoded = jwtDecode(localStorage.getItem("Token"));
+
+  useEffect(() => {
+    const fetchData1 = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/gender/donations/${decoded.id}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const json = await response.json();
+        setdatam(json.male);
+        setdataf(json.female);
+        setdatao(json.others);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    fetchData1();
+  }, [datam, dataf, datao]);
+
   return (
-    <div>
+    <div style={{height:'100%' , width:'100%'}}>
       <Bar
         data={{
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          labels: ["Male", "Female", "Others"],
           datasets: [
             {
               label: "Donations",
-              data: [12, 19, 3, 5, 2, 3],
+              data: [datam, dataf, datao],
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
@@ -28,8 +57,6 @@ const BarChart = () => {
             },
           ],
         }}
-        height={400}
-        width={600}
         options={{
           maintainAspectRatio: false,
           scales: {
@@ -43,7 +70,7 @@ const BarChart = () => {
             xAxes: [
               {
                 type: "category",
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                labels: ["Male", "Female", "Others"],
                 ticks: {
                   beginAtZero: true,
                 },
