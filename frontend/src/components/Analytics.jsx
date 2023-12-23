@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "../stylesheets/Analytics.module.css";
-import { createRoot } from "react-dom/client";
-import { AgChartsReact } from "ag-charts-react";
 import { jwtDecode } from "jwt-decode";
 
 import * as maptilersdk from "@maptiler/sdk";
@@ -9,7 +7,6 @@ import "@maptiler/sdk/dist/maptiler-sdk.css";
 import BarChart from "./BarChart";
 import PieChart from "./PieChart";
 import LineChart from "./LineChart";
-
 
 
 const Analytics = () => {
@@ -24,87 +21,6 @@ const Analytics = () => {
   const [totald, settotald] = useState([]);
   const [todtotal, settodtotal] = useState([]);
   const [topdonation, settopdonation] = useState([]);
-
-  const [agearr, setagearr] = useState([]);
-  const [occup, setoccup] = useState([]);
-
-  const [options3, setOptions3] = useState({
-    data: occup,
-    title: {
-      text: "Occupation Composition",
-    },
-    series: [
-      {
-        type: "pie",
-        angleKey: "amount",
-        legendItemKey: "asset",
-      },
-    ],
-  });
-
-  const [options2, setOptions2] = useState({
-    title: {
-      text: "Donations by Gender Category",
-    },
-    subtitle: {
-      text: "In Rupees",
-    },
-    data: [
-      {
-        quarter: "Gender",
-        male: 140,
-        female: 16,
-        others: 14,
-      },
-    ],
-    series: [
-      {
-        type: "bar",
-        xKey: "quarter",
-        yKey: "male",
-        yName: "Male",
-      },
-      {
-        type: "bar",
-        xKey: "quarter",
-        yKey: "female",
-        yName: "Female",
-      },
-      {
-        type: "bar",
-        xKey: "quarter",
-        yKey: "others",
-        yName: "Others",
-      },
-    ],
-  });
-
-  const [options, setOptions] = useState({
-    title: {
-      text: "Age demographics",
-    },
-    data: agearr,
-    series: [
-      {
-        type: "histogram",
-        xKey: "age",
-        xName: "Donar Age",
-      },
-    ],
-    axes: [
-      {
-        type: "number",
-        position: "bottom",
-        title: { text: "Age band (years)" },
-        tick: { interval: 2 },
-      },
-      {
-        type: "number",
-        position: "left",
-        title: { text: "Number of Donations" },
-      },
-    ],
-  });
 
   //map shit below
 
@@ -214,50 +130,6 @@ const Analytics = () => {
     fetchData3();
   }, [totald, todtotal, topdonation]);
 
-  //age shit below
-
-  useEffect(() => {
-    const fetchData1 = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/age/donations/${decoded.id}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-
-        const json = await response.json();
-        const tranformarr = json.data.map((age) => ({ age: age.age }));
-        setagearr(tranformarr);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    };
-
-    console.log(agearr);
-    fetchData1();
-
-    const fetchData2 = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/occupation/donations/${decoded.id}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-
-        const json = await response.json();
-        setoccup(json.data);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    };
-
-    console.log(occup);
-    fetchData2();
-  }, [agearr, occup]);
 
   return (
     <div className={styles.mostouter}>

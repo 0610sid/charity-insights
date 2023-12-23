@@ -1,26 +1,52 @@
-import React from "react";
-import {
-  Chart as ChartJS,
-  PieController,
-  ArcElement,
-  Tooltip,
-  Legend,
-  Title,
-} from "chart.js";
+import React, { useEffect, useState } from "react";
+import {Chart as ChartJS,PieController,ArcElement,Tooltip,Legend,Title} from "chart.js";
 import { Pie } from "react-chartjs-2";
+import { jwtDecode } from "jwt-decode";
 
 ChartJS.register(PieController, ArcElement, Tooltip, Legend, Title);
 
 const PieChart = () => {
+
+  const [emp, setemp] = useState(0);
+  const [unemp, setunemp] = useState(0);
+  const [selfemp, setselfemp] = useState(0);
+  const [ret, setret] = useState(0);
+  const [std, setstd] = useState(0);
+  var decoded = jwtDecode(localStorage.getItem("Token"));
+
+  useEffect(() => {
+    const fetchData1 = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/occupation/donations/${decoded.id}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const json = await response.json();
+        setemp(json.Employed);
+        setunemp(json.Unemployed);
+        setret(json.Retired);
+        setstd(json.Student)
+        setselfemp(json.Self-Employed)
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+    fetchData1();
+  }, [emp , unemp , selfemp , std , ret]);
+
   return (
-    <div>
+    <div style={{height:'100%' , width:'100%'}}>
       <Pie
         data={{
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          labels: ["Employed", "UnEmployed", "Self-Employed", "Student", "Retired"],
           datasets: [
             {
               label: "Donations",
-              data: [12, 19, 3, 5, 2, 3],
+              data: [emp , unemp , selfemp , std , ret],
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
@@ -30,8 +56,7 @@ const PieChart = () => {
             },
           ],
         }}
-        height={400}
-        width={600}
+
         options={{
           maintainAspectRatio: false,
           scales: {
@@ -45,7 +70,7 @@ const PieChart = () => {
             xAxes: [
               {
                 type: "category",
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                labels: ["Employed", "UnEmployed", "Self-Employed", "Student", "Retired"],
                 ticks: {
                   beginAtZero: true,
                 },

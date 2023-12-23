@@ -52,35 +52,59 @@ router.post('/top/donations/:id' , async(req , res) =>{
     }
 })
 
-router.post('/age/donations/:id' , async(req , res) =>{
+router.post('/age/donations/:id', async (req, res) => {
     try {
-        const query = 'SELECT users.age FROM users JOIN donation ON users.user_id = donation.user_id WHERE donation.ngo_id = $1'
-        const { rows } = await db.query(query, [req.params.id])
-        return res.json({data : rows})
-    } catch (error) {
-        return res.status(400).json({ error: error.message })
-    }
-})
+        const query = `
+            SELECT
+                COUNT(CASE WHEN users.age <= 18 THEN 1 END) AS "b18",
+                COUNT(CASE WHEN users.age > 18 AND users.age <= 30 THEN 1 END) AS "r1830",
+                COUNT(CASE WHEN users.age > 30 AND users.age <= 60 THEN 1 END) AS "r3060",
+                COUNT(CASE WHEN users.age > 60 AND users.age <= 80 THEN 1 END) AS "r6080",
+                COUNT(CASE WHEN users.age > 80 AND users.age <= 100 THEN 1 END) AS "r80100",
+                COUNT(CASE WHEN users.age > 100 THEN 1 END) AS "up100"
+            FROM
+                users
+            JOIN
+                donation ON users.user_id = donation.user_id
+            WHERE
+                donation.ngo_id = $1
+        `;
 
-router.post('/age/donations/:id' , async(req , res) =>{
-    try {
-        const query = 'SELECT users.age FROM users JOIN donation ON users.user_id = donation.user_id WHERE donation.ngo_id = $1'
-        const { rows } = await db.query(query, [req.params.id])
-        return res.json({data : rows})
-    } catch (error) {
-        return res.status(400).json({ error: error.message })
-    }
-})
+        const { rows } = await db.query(query, [req.params.id]);
+        const ageCount = rows[0];
 
-router.post('/occupation/donations/:id' , async(req , res) =>{
-    try {
-        const query = 'SELECT users.occupation AS asset, SUM(donation.amount_paid) AS amount FROM donation JOIN users ON donation.user_id = users.user_id WHERE donation.ngo_id = $1 GROUP BY users.occupation'
-        const { rows } = await db.query(query, [req.params.id])
-        return res.json({data : rows})
+        return res.json(ageCount);
     } catch (error) {
-        return res.status(400).json({ error: error.message })
+        return res.status(400).json({ error: error.message });
     }
-})
+});
+
+router.post('/occupation/donations/:id', async (req, res) => {
+    try {
+        const query = 'SELECT users.occupation AS asset, SUM(donation.amount_paid) AS amount FROM donation JOIN users ON donation.user_id = users.user_id WHERE donation.ngo_id = $1 GROUP BY users.occupation';
+        const { rows } = await db.query(query, [req.params.id]);
+
+        // Initialize the result object with enum values
+        const transformedData = {
+            Employed: 0,
+            Unemployed: 0,
+            "Self-Employed": 0,
+            Student: 0,
+            Retired: 0,
+        };
+
+        // Update the result object with actual amounts from the database
+        rows.forEach(({ asset, amount }) => {
+            const key = asset.charAt(0).toUpperCase() + asset.slice(1).toLowerCase();
+            transformedData[key] = amount;
+        });
+
+        return res.json(transformedData);
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
+    }
+});
+
 
 router.post('/gender/donations/:id', async (req, res) => {
     try {
