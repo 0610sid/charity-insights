@@ -52,5 +52,39 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.post('/all/ngo', async (req, res) => {
+    try {
+        const query = 'SELECT ngo_name as name, description, ngo_id as id, location, moreinfo , email FROM ngo WHERE is_verified = false';
+        const { rows } = await db.query(query);
+    
+        return res.json(rows);
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
+    }
+});
+
+router.post('/verify/:id', async (req, res) => {
+    try {
+        const values = [req.params.id]
+        const query = 'UPDATE ngo SET is_verified = true WHERE ngo_id = $1';
+        const { rows } = await db.query(query , values);
+    
+        return res.json(rows);
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
+    }
+});
+
+router.post('/delete/:id', async (req, res) => {
+    try {
+        const values = [req.params.id]
+        const query = 'DELETE FROM ngo WHERE ngo_id = $1';
+        const { rows } = await db.query(query , values);
+    
+        return res.json(rows);
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
+    }
+});
 
 module.exports = router
