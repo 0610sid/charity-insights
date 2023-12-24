@@ -55,6 +55,15 @@ const BarChart = () => {
         }}
         options={{
           maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "Donation by Gender",
+              font: {
+                size: 23,
+              },
+            },
+          },
           scales: {
             yAxes: [
               {

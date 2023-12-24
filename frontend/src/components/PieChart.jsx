@@ -61,6 +61,15 @@ const PieChart = () => {
         }}
 
         options={{
+          plugins: {
+            title: {
+              display: true,
+              text: "Donation by Occupation",
+              font: {
+                size: 23,
+              },
+            },
+          },          
           maintainAspectRatio: false,
           scales: {
             yAxes: [

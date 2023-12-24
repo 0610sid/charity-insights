@@ -12,7 +12,6 @@ import { jwtDecode } from "jwt-decode";
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement);
 
 const LineChart = () => {
-
   const [b18, setb18] = useState(0);
   const [r1830, setr1830] = useState(0);
   const [r3060, setr3060] = useState(0);
@@ -22,7 +21,6 @@ const LineChart = () => {
   var decoded = jwtDecode(localStorage.getItem("Token"));
 
   useEffect(() => {
-
     const fetchData1 = async () => {
       try {
         const response = await fetch(
@@ -46,8 +44,7 @@ const LineChart = () => {
     };
 
     fetchData1();
-    
-  }, [b18 , r1830 , r3060 , r6080 , r80100 , up100]);
+  }, [b18, r1830, r3060, r6080, r80100, up100]);
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -57,22 +54,36 @@ const LineChart = () => {
           datasets: [
             {
               label: "Donations",
-              data: [b18 , r1830 , r3060 , r6080 , r80100 , up100],
+              data: [b18, r1830, r3060, r6080, r80100, up100],
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
                 "rgba(255, 206, 86, 0.2)",
                 "rgba(75, 192, 192, 0.2)",
                 "rgba(255, 159, 64, 0.2)",
-
               ],
-              borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(255, 159, 64, 1)"],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
               borderWidth: 1,
             },
           ],
         }}
         options={{
           maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "Number of Donation by Age",
+              font: {
+                size: 23,
+              },
+            },
+          },
           scales: {
             yAxes: [
               {
