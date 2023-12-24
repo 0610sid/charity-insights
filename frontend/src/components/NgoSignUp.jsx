@@ -126,6 +126,36 @@ const Signup = () => {
               />
             </div>
 
+            <div className={styles.field2}>
+              <img src={information} className={styles.img2} />
+              <input
+                className={styles.input}
+                placeholder="Description"
+                type="text"
+                onChange={onchange5}
+              />
+            </div>
+
+            <div className={styles.field2}>
+              <img src={information} className={styles.img2} />
+              <input
+                className={styles.input}
+                placeholder="Description"
+                type="text"
+                onChange={onchange5}
+              />
+            </div>
+
+            <div className={styles.field2}>
+              <img src={information} className={styles.img2} />
+              <input
+                className={styles.input}
+                placeholder="Description"
+                type="text"
+                onChange={onchange5}
+              />
+            </div>
+
             <div className={styles.btndiv}>
               {!error && !loader && (
                 <button className={styles.buttons}>SignUp</button>

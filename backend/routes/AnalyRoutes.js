@@ -88,14 +88,14 @@ router.post('/occupation/donations/:id', async (req, res) => {
         const transformedData = {
             Employed: 0,
             Unemployed: 0,
-            "Self-Employed": 0,
+            SelfEmployed: 0,
             Student: 0,
             Retired: 0,
         };
 
         // Update the result object with actual amounts from the database
         rows.forEach(({ asset, amount }) => {
-            const key = asset.charAt(0).toUpperCase() + asset.slice(1).toLowerCase();
+            const key = asset;
             transformedData[key] = amount;
         });
 

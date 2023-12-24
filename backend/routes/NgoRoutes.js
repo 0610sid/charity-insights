@@ -27,12 +27,10 @@ router.post('/ngo/info/:id', async (req, res) => {
 
 router.post('/all/ngo', async (req, res) => {
     try {
-        const query = 'SELECT ngo_name as name, description, email, location, image, moreinfo FROM ngo WHERE ngo_id = $1';
-        const { rows } = await db.query(query, [req.params.id]);
-
-        const data = rows[0];
+        const query = 'SELECT ngo_name as name, description, ngo_id as id, location, image, moreinfo FROM ngo';
+        const { rows } = await db.query(query);
     
-        return res.json(data);
+        return res.json(rows);
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }

@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
 .cards{
     width: 100vw;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
+}
+
+.title{
+    color: #a3b1eb;
+    font-family: Montserrat, sans-serif;
+    text-align: center;
+    font-weight: 600;
+    font-size: 2vw;
+    padding: 2vw 0;
 }
