@@ -13,6 +13,7 @@ const jwt = require('jsonwebtoken')
 
 const adminroutes = require('./routes/AdminRoutes')
 const analytics = require('./routes/AnalyRoutes')
+const ngoroutes = require('./routes/NgoRoutes')
 
 const db = require('./config/dbConfig')
 
@@ -31,6 +32,7 @@ app.use(bodyParser.json())
 
 app.use('/admin/' , adminroutes)
 app.use('/' , analytics)
+app.use('/' , ngoroutes)
 
 app.post('/signup', async (req, res) => {
     try {

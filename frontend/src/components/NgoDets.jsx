@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../stylesheets/NgoDets.module.css";
 import img1 from "../assets/temp1.jpg";
+import { useParams } from "react-router-dom";
 
 const NgoDets = () => {
+  const { ngoid } = useParams();
+
   const [location, setlocation] = useState({ latitude: null, longitude: null });
+  const [reqdata, setreqdata] = useState({name: "",description: "",email: "",locationtxt: "",image: "",moreinfo: ""});
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -23,25 +27,54 @@ const NgoDets = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData1 = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/ngo/info/${ngoid}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const json = await response.json();
+        setreqdata({
+          ...reqdata,
+          email: json.email,
+          name: json.name,
+          description: json.description,
+          locationtxt: json.location,
+          image: json.image,
+          moreinfo: json.moreinfo,
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    fetchData1();
+  }, [ngoid]);
+
   return (
     <div className={styles.ret}>
       <div className={styles.left}>
-        <img src={img1} className={styles.img} />
+        <img src={reqdata.image} className={styles.img} />
         <div className={styles.leftinfo}>
-          <p className={styles.name}>Name XXX XXX</p>
-          <p className={styles.loct}>Location</p>
-          <p style={{ fontSize: "1.1vw" }}>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-            rem nemo maiores perferendis distinctio repellendus corrupti aperiam
-            cupiditate voluptatibus vitae eos ea, totam dignissimos tempore quam
-            sint est, eveniet impedit.
+          <p className={styles.name}>{reqdata.name}</p>
+          <p className={styles.loct} style={{ paddingBottom: "0" }}>
+            {reqdata.locationtxt}
           </p>
+          <p className={styles.loct}>{reqdata.email}</p>
+          <p style={{ fontSize: "1.1vw" }}>{reqdata.description}</p>
           <p style={{ textAlign: "center", paddingTop: "2vh" }}>
             <a
-              href="https://meet.google.com/?authuser=0"
+              href={reqdata.moreinfo}
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.link}
             >
-              For more info
+              Link Text
             </a>
           </p>
         </div>

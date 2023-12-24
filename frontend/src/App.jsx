@@ -32,7 +32,7 @@ function App() {
             <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
           </Route>
           <Route path='/admin/login' element={<AdminLogin/>}/>
-          <Route path='/ngodeets' element={<NgoDets/>}/>
+          <Route path='/ngodeets/:ngoid' element={<NgoDets/>}/>
           <Route path='/verification' element={<Verification/>}/>
           <Route path="*" element={<Error404 />} />
         </Routes>
