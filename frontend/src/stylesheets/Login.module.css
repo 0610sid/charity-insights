@@ -23,6 +23,20 @@
   padding: 2% 1% 2% 1%;
 }
 
+.container3 {
+  min-width: 45vw;
+  min-height: 50vh;
+  border-radius: 25px;
+  background-color: #0f0820;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #a3b1eb;
+  font-family: "Montserrat", sans-serif;
+  padding: 2% 1% 2% 1%;
+}
+
+
 .container2 {
   min-width: 23vw;
   border-radius: 25px;
@@ -169,6 +183,14 @@
   padding: 10% 0%;
   overflow: hidden;
   width: 100%;
+}
+
+.forminsidemain{
+  display: flex;
+}
+
+.forminsidehalf{
+  width: 50%;
 }
 
 @media (orientation: portrait) {

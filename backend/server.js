@@ -58,8 +58,8 @@ app.post('/signup', async (req, res) => {
             throw new Error('Username already in use')
             
         } else {
-            const values = [hashpass, req.body.username, req.body.email , req.body.name , req.body.describe]
-            db.query('INSERT INTO ngo(email, ngo_name, password , username , description) VALUES ($3, $4, $1, $2, $5)', values, (error, results) => {
+            const values = [hashpass, req.body.username, req.body.email , req.body.name , req.body.describe , req.body.img , req.body.link , req.body.loct]
+            db.query('INSERT INTO ngo(email, ngo_name, password , username , description , image , moreinfo , location) VALUES ($3, $4, $1, $2, $5, $6 , $7 , $8)', values, (error, results) => {
                 if (error) {
                     return res.status(500).json({ error: `Error in insertion: ${error}` })
                 }
