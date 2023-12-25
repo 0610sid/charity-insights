@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "../stylesheets/Dashboard.module.css";
 import styles2 from "../stylesheets/Ngo.module.css";
+import { useNavigate } from 'react-router-dom'
 
 const Dashboard = () => {
   const [reqdata, setreqdata] = useState([]);
+  const navigate = useNavigate()
+
+  const func1 = (ngoid) => {
+    navigate(`/ngodeets/${ngoid}`)
+  }
 
   useEffect(() => {
     const fetchData1 = async () => {
@@ -37,7 +43,7 @@ const Dashboard = () => {
                 <p className={styles2.loct}>{item.location}</p>
                 <div className={styles2.desc}>{item.description}</div>
                 <div className={styles2.actions}>
-                  <button className={styles2.button}>Donate $</button>
+                  <button className={styles2.button} onClick={() => func1(item.id)}>Donate $</button>
                 </div>
               </div>
             </div>

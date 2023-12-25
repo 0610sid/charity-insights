@@ -3,11 +3,11 @@ import styles from '../stylesheets/Login.module.css';
 
 const Verification = () => {
   return (
-    <div className={styles.mainErrorPage}>
+    <div className={styles.mainErrorPage} >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
-        width="auto"
+        width="100%"
         height="290"
         viewBox="0 0 470 290"
         className={styles.svg}
