@@ -4,10 +4,6 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require('express');
 
-const bcrypt = require('bcrypt')
-const validator = require('validator')
-const jwt = require('jsonwebtoken')
-
 const db = require('../config/dbConfig')
 
 const router = express.Router()

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../stylesheets/NgoDets.module.css";
-import img1 from "../assets/temp1.jpg";
+
 import { useNavigate, useParams } from "react-router-dom";
 
 const NgoDets = () => {
@@ -67,29 +67,109 @@ const NgoDets = () => {
     setamt(event.target.value)
   }
 
-  const handlesubmit = async () => {
+  const handlesubmit = async (e) => {
+    e.preventDefault();
+
+    if(!num || !email || !location.latitude || !gender || !occup || !name)
+    {
+      setTimeout(() => {
+        seterror("")
+      }, 3000)
+      return seterror("All fields are must !!")
+    }
+
+    if(num < 1000000000 || num > 9999999999)
+    {
+      setTimeout(() => {
+        seterror("")
+      }, 3000)
+      return seterror("Please enter valid number")
+    }
+
+    if(amt < 1)
+    {
+      setTimeout(() => {
+        seterror("")
+      }, 3000)
+      return seterror("Please enter amount greater than Rs.1")
+    }
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/ngo/submit/donation/${ngoid}`,
+      const response1 = await fetch(
+        `http://localhost:5000/create/order`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ gender: gender, occupation: occup, age: age, name: name, email: email, number: num, amount: amt, latitude: location.latitude, longitude: location.longitude })
+          body: JSON.stringify({ amount: amt })
         }
       );
+  
+      const json2 = await response1.json();
 
-      const json = await response.json();
-      if (json.success) {
-        navigate("/")
-      }
-      else {
-        seterror(json.error)
-      }
+      var options = {
+        key: "rzp_test_WMmK73ZVRp3s5I",
+        amount: amt,
+        currency: "INR",
+        name: "Charity Insights",
+        description: "Thank you for your donation",
+        image: "https://live.staticflickr.com/65535/17123251389_80282733ce_z.jpg",
+        order_id: json2.order_id,
+        handler: async function (response) {
+          const body = {
+            ...response,
+          };
+  
+          console.log("Payment successful:", body);
+  
+          try {
+            const response = await fetch(
+              `http://localhost:5000/ngo/submit/donation/${ngoid}`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ gender: gender, occupation: occup, age: age, name: name, email: email, number: num, amount: amt, latitude: location.latitude, longitude: location.longitude })
+              }
+            );
+  
+            const json = await response.json();
+            if (json.success) {
+              setTimeout(() => {
+                navigate("/thankyou")
+            }, 2000)
+            } else {
+              seterror(json.error)
+              setTimeout(() => {
+                seterror("")
+            }, 3000)
+            }
+          } catch (error) {
+            console.error("Error submitting donation:", error.message);
+          }
+        },
+        prefill: {
+          name: name,
+          email: email,
+          contact: num,
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#a3b1eb",
+        },
+      };
+  
+      var rzp1 = new window.Razorpay(options);
+      rzp1.on("payment.failed", function (response) {
+        console.log("Payment failed:", response);
+      });
+      rzp1.open();
+      e.preventDefault();
     } catch (error) {
       console.error("Error fetching data:", error.message);
     }
-  }
+  };
+  
 
   useEffect(() => {
     const fetchData1 = async () => {
@@ -151,10 +231,10 @@ const NgoDets = () => {
           <form style={{display : "flex" , flexDirection : "column" , alignItems : "center" }}>
             <div className={styles.rightinput}>
 
-              <input placeholder="Name" type="text" className={styles.input} onChange={handlechange4} />
-              <input placeholder="Age" type="number" className={styles.input} onChange={handlechange3} />
-              <input placeholder="Email" type="email" className={styles.input} onChange={handlechange5} />
-              <input placeholder="Number" type="number" className={styles.input} onChange={handlechange6} />
+              <input placeholder="Name" type="text" className={styles.input} onChange={handlechange4} required />
+              <input placeholder="Age" type="number" className={styles.input} onChange={handlechange3} required />
+              <input placeholder="Email" type="email" className={styles.input} onChange={handlechange5} required />
+              <input placeholder="Number" type="number" className={styles.input} onChange={handlechange6} required />
               <br />
               <select defaultValue="" className={styles.customdropdown} onChange={handlechange1}>
                 <option disabled hidden value="">
@@ -178,7 +258,7 @@ const NgoDets = () => {
               </select>
               <br />
               <br />
-              <input placeholder="Amount" type="number" className={styles.input} onChange={handlechange7} />
+              <input placeholder="Amount" type="number" className={styles.input} onChange={handlechange7} required />
             </div>
 
             <div className={styles.location}>

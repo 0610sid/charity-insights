@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../stylesheets/Dashboard.module.css";
 import styles2 from "../stylesheets/Ngo.module.css";
 import { useNavigate } from 'react-router-dom'
+import navb from "../stylesheets/Navbar.module.css"
 
 const Dashboard = () => {
   const [reqdata, setreqdata] = useState([]);
@@ -10,6 +11,10 @@ const Dashboard = () => {
   const func1 = (ngoid) => {
     navigate(`/ngodeets/${ngoid}`)
   }
+
+  const func2 = (e) => {
+    navigate("/")
+}
 
   useEffect(() => {
     const fetchData1 = async () => {
@@ -31,6 +36,9 @@ const Dashboard = () => {
 
   return (
     <div>
+      <nav className={navb.navbar}>          
+          <button className={`${styles.buttons} ${navb.buttonhome}`} onClick={func2}> Home </button>
+      </nav>
       <p className={styles.title}>Dashboard</p>
       <div className={styles.cards}>
         

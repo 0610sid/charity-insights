@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "../stylesheets/Analytics.module.css";
+import navb from "../stylesheets/Navbar.module.css"
 import { jwtDecode } from "jwt-decode";
 
 import * as maptilersdk from "@maptiler/sdk";
@@ -8,6 +9,10 @@ import BarChart from "./BarChart";
 import PieChart from "./PieChart";
 import LineChart from "./LineChart";
 
+import { useNavigate } from "react-router-dom"
+
+import html2canvas from "html2canvas"
+import jsPDF from "jspdf"
 
 const Analytics = () => {
   const [markerData, setmakerData] = useState([]);
@@ -21,6 +26,27 @@ const Analytics = () => {
   const [totald, settotald] = useState([]);
   const [todtotal, settodtotal] = useState([]);
   const [topdonation, settopdonation] = useState([]);
+
+  const handleprint = () => {
+    html2canvas(document.body, { width: window.innerWidth, height: window.innerHeight }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "landscape", // Set the orientation to landscape
+      });
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      pdf.save("analytics.pdf");
+    });
+  };
+
+  let navigate = useNavigate()
+
+  const logout = () => {
+    localStorage.removeItem("Token");
+    navigate("/")
+  }
 
   //map shit below
 
@@ -133,6 +159,10 @@ const Analytics = () => {
 
   return (
     <div className={styles.mostouter}>
+      <nav className={navb.navbar2}>          
+          <button className={`${styles.buttons} ${navb.buttonhome2}`} onClick={handleprint}> Print </button>
+          <button className={`${styles.buttons} ${navb.buttonhome2}`} onClick={logout}> Logout </button>
+      </nav>
       <div className={styles.left}>
         <div className={styles.totalsum}>
           <p className={styles.tot}>Total Donations :</p>

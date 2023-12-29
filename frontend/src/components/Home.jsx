@@ -31,21 +31,8 @@ const Home = () => {
         <>
             <div className={styles.desktop}>
                 <nav className={navb.navbar}>
-                    {localStorage.getItem("Token") ? (
-                        <button
-                            className={`${styles.buttons} ${navb.buttonhome}`}
-                            onClick={func1}
-                        >
-                            Dashboard
-                        </button>
-                    ) : (
-                        <button
-                            className={`${styles.buttons} ${navb.buttonhome}`}
-                            onClick={func2}
-                        >
-                            Get Started
-                        </button>
-                    )}
+                        <button className={`${styles.buttons} ${navb.buttonhome}`} onClick={func1}>Dashboard</button>
+                        <button className={`${styles.buttons} ${navb.buttonhome}`}onClick={func2}>NGO Login</button>
                 </nav>
 
                 <div className={styles.container}>
@@ -85,9 +72,9 @@ const Home = () => {
                     <br />
 
                     <div className={styles.aboutdiv}>
-                        <p data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="200" className={styles.aboutus}>Our Mission</p>
+                        <p data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="800" className={styles.aboutus}>Our Mission</p>
 
-                        <p data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="700" className={styles.abouttxt}>
+                        <p data-aos="fade-zoom-in" data-aos-duration="1000" data-aos-delay="1300" className={styles.abouttxt}>
                             Empowering Change, Illuminating Impact.<br />
 
                             Our mission is to inspire and facilitate meaningful connections between donors and NGOs, fostering a global community committed to positive change. We believe in the collective power of informed giving and the invaluable insights that data can provide to amplify the impact of charitable actions.

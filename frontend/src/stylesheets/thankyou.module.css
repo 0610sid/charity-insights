@@ -6,4 +6,28 @@
 .outer{
     color: #a3b1eb;
     font-family: Montserrat, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header{
+    font-weight: 600;
+    font-size: 6vw;
+    text-align: center;
+    margin-top: 17vh;
+}
+
+.size{
+    height: 15vw;
+    width: 30vw;
+    object-fit: cover;
+    margin: 5vh;
+}
+
+.below{
+    font-weight: 300;
+    font-size: 1.2vw;
+    width: 50%;
+    text-align: center;
 }

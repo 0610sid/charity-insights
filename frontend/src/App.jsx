@@ -12,7 +12,6 @@ import AdminDashboard from './components/AdminDashboard'
 import AdminLogin from './components/AdminLogin'
 import Verification from './components/Verification'
 import ThankYou from './components/ThankYou'
-import PaymentGateway from './components/PaymentGateway'
 
 import NgoRoutes from './utils/NgoRoutes'
 import AdminRoutes from './utils/AdminRoutes'
@@ -31,7 +30,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/thankyou" element={<ThankYou />} />
-          <Route path="/payment" element={<PaymentGateway />} />
           <Route element={<AdminRoutes/>}>
             <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
           </Route>

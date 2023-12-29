@@ -1,24 +1,28 @@
-import React from 'react';
-import styles from '../stylesheets/Login.module.css';
+import React from 'react'
+import styles from "../stylesheets/thankyou.module.css"
+import navb from "../stylesheets/Navbar.module.css"
+import wait from "../assets/wait.png"
+
+import { useNavigate } from "react-router-dom"
 
 const Verification = () => {
+
+  let navigate = useNavigate()
+
+  const func1 = (e) => {
+    navigate("/")
+}
+
   return (
-    <div className={styles.mainErrorPage} >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        width="100%"
-        height="290"
-        viewBox="0 0 470 290"
-        className={styles.svg}
-      >
-        {/* ... (SVG paths and elements) */}
-      </svg>
-
-      <h1 className={styles.errorTitle}>Woops! <br />Something went wrong :(</h1>
-      <h2 className={styles.errorSubtitle}>Have you tried turning it off and on again?</h2>
+    <div className={styles.outer}>
+      <nav className={navb.navbar}>          
+          <button className={`${styles.buttons} ${navb.buttonhome}`} onClick={func1}> Home </button>
+      </nav>
+      <p className={styles.header}>Wait !</p>
+      <img src={wait} alt = 'Wait' className={styles.size}/>
+      <p className={styles.below}>Thank you sincerely for your patience as we process your verification. Kindly await completion of the verification process; we appreciate your cooperation during this time.</p>
     </div>
-  );
-};
+  )
+}
 
-export default Verification;
+export default Verification
