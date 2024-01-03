@@ -48,7 +48,7 @@ const Analytics = () => {
     navigate("/")
   }
 
-  //map shit below
+  
 
   useEffect(() => {
     const fetchData = async () => {

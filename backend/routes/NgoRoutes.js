@@ -23,7 +23,7 @@ router.post('/ngo/info/:id', async (req, res) => {
 
 router.post('/all/ngo', async (req, res) => {
     try {
-        const query = 'SELECT ngo_name as name, description, ngo_id as id, location, image, moreinfo FROM ngo';
+        const query = 'SELECT ngo_name as name, description, ngo_id as id, location, image, moreinfo FROM ngo WHERE is_verified = true';
         const { rows } = await db.query(query);
     
         return res.json(rows);
